@@ -1,0 +1,4 @@
+{
+  "*.ts": ["npx eslint --ext .ts --fix", "git add ."],
+  "*.tsx": ["npx eslint --ext .tsx --fix", "git add ."]
+}
