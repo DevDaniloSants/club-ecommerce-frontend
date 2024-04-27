@@ -1,4 +1,4 @@
 const env = {
-  apiUrl: import.meta.env.REACT_APP_API_URL,
+  apiUrl: import.meta.env.VITE_API_URL,
 }
 export default env
