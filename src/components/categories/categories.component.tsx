@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-import './categories.styles.css'
+import { CategoriesContainer, CategoriesContent } from './categories.styles'
 
 import Category from '../../types/category.types'
 import env from '../../config/env.config'
@@ -21,21 +21,19 @@ const Categories = () => {
     }
   }
 
-  console.log({ categories })
-
   useEffect(() => {
     fetchCategories()
   }, [])
   return (
-    <div className="categories-container">
-      <div className="categories-content">
+    <CategoriesContainer>
+      <CategoriesContent>
         {categories.map((category) => (
           <div key={category.id}>
             <CategoryItem category={category} />
           </div>
         ))}
-      </div>
-    </div>
+      </CategoriesContent>
+    </CategoriesContainer>
   )
 }
 
