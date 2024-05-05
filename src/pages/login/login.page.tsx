@@ -15,15 +15,19 @@ import {
   LoginSubtitle,
 } from './login.styles'
 
+interface LoginForm {
+  email: string
+  password: string
+}
+
 const LoginPage = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm()
+  } = useForm<LoginForm>()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: LoginForm) => {
     console.log({ data })
   }
 
