@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
-
 import { getDocs, collection } from 'firebase/firestore'
 
 import { CategoriesContainer, CategoriesContent } from './categories.styles'
 
 import Category from '../../types/category.types'
+import { db } from '../../config/firebase.config'
+import { categoryConverter } from '../../converters/firestore.converters'
 
 import CategoryItem from '../category-item/category-item.component'
-import { db } from '../../config/firebase.config'
 
 const Categories = () => {
   const [categories, setCategories] = useState<Category[]>([])
@@ -15,10 +15,12 @@ const Categories = () => {
   const fetchCategories = async () => {
     try {
       const categoriesFromFirestore: Category[] = []
-      const querySnapShot = await getDocs(collection(db, 'categories'))
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      querySnapShot.forEach((doc: any) => {
+      const querySnapShot = await getDocs(
+        collection(db, 'categories').withConverter(categoryConverter)
+      )
+
+      querySnapShot.forEach((doc) => {
         categoriesFromFirestore.push(doc.data())
       })
 
