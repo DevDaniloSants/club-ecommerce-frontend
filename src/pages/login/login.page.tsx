@@ -2,10 +2,17 @@ import { BsGoogle } from 'react-icons/bs'
 import { FiLogIn } from 'react-icons/fi'
 import { useForm } from 'react-hook-form'
 import { isEmail } from 'validator'
+import {
+  AuthError,
+  AuthErrorCodes,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
 
 import CustomButton from '../../components/custom-button/custom-button'
 import CustomInput from '../../components/custom-input/custom-input'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
+
+import { auth } from '../../config/firebase.config'
 
 import {
   LoginContainer,
@@ -25,16 +32,34 @@ const LoginPage = () => {
     register,
     formState: { errors },
     handleSubmit,
+    setError,
   } = useForm<LoginForm>()
 
-  const onSubmit = (data: LoginForm) => {
-    console.log({ data })
+  const handleSubmitPress = async (data: LoginForm) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
+
+      console.log({ userCredential })
+    } catch (error) {
+      const _error = error as AuthError
+
+      if (_error.code === AuthErrorCodes.INVALID_IDP_RESPONSE) {
+        setError('password', { type: 'mismatch' })
+        setError('email', { type: 'mismatch' })
+
+        return
+      }
+    }
   }
 
   return (
     <>
       <LoginContainer>
-        <LoginContent>
+        <LoginContent onSubmit={handleSubmit(handleSubmitPress)}>
           <LoginHeadline>Entre com a sua conta</LoginHeadline>
           <CustomButton startIcon={<BsGoogle size={18} />}>
             Entrar com o Google
@@ -65,6 +90,7 @@ const LoginPage = () => {
           <LoginInputContainer>
             <p>Senha</p>
             <CustomInput
+              type="password"
               hasError={!!errors?.password}
               placeholder="Digite sua senha"
               {...register('password', { required: true })}
@@ -72,12 +98,14 @@ const LoginPage = () => {
             {errors?.password?.type === 'required' && (
               <InputErrorMessage>A senha é obrigatória</InputErrorMessage>
             )}
+            {errors?.password?.type === 'mismatch' && (
+              <InputErrorMessage>
+                O endereço de email ou a senha que você inseriu não é válido
+              </InputErrorMessage>
+            )}
           </LoginInputContainer>
 
-          <CustomButton
-            startIcon={<FiLogIn size={18} />}
-            onClick={() => handleSubmit(onSubmit)()}
-          >
+          <CustomButton type="submit" startIcon={<FiLogIn size={18} />}>
             Entrar
           </CustomButton>
         </LoginContent>

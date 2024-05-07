@@ -15,7 +15,7 @@ export const LoginHeadline = styled.p`
   color: ${Colors.text.dark};
 `
 
-export const LoginContent = styled.div`
+export const LoginContent = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
