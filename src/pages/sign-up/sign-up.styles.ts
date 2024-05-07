@@ -19,7 +19,7 @@ export const SignUpHeadline = styled.p`
   text-align: center;
 `
 
-export const SignUpContent = styled.div`
+export const SignUpContent = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,6 +1,10 @@
 import { useForm } from 'react-hook-form'
 import { isEmail } from 'validator'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { collection, addDoc } from 'firebase/firestore'
 import { FiLogIn } from 'react-icons/fi'
+
+import { auth, db } from '../../config/firebase.config'
 
 import {
   SignUpContainer,
@@ -27,17 +31,37 @@ const SignUpPage = () => {
     formState: { errors },
     handleSubmit,
     watch,
+    reset,
   } = useForm<SignUpPageForm>()
 
-  const handleSubmitSignUp = (data: SignUpPageForm) => {
-    console.log({ data })
+  const handleSubmitSignUp = async (data: SignUpPageForm) => {
+    try {
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      )
+
+      const doc = await addDoc(collection(db, 'users'), {
+        id: userCredentials.user.uid,
+        email: userCredentials.user.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        provider: 'firebase',
+      })
+
+      console.log(doc.id)
+      reset()
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const watchPassword = watch('password')
 
   return (
     <SignUpContainer>
-      <SignUpContent>
+      <SignUpContent onSubmit={handleSubmit(handleSubmitSignUp)}>
         <SignUpHeadline>Criar uma conta</SignUpHeadline>
 
         <SignUpInputContainer>
@@ -67,6 +91,8 @@ const SignUpPage = () => {
         <SignUpInputContainer>
           <p>E-mail</p>
           <CustomInput
+            type="email"
+            autoComplete="username"
             hasError={!!errors?.email}
             placeholder="Digite o seu e-mail"
             {...register('email', {
@@ -85,6 +111,8 @@ const SignUpPage = () => {
         <SignUpInputContainer>
           <p>Senha</p>
           <CustomInput
+            type="password"
+            autoComplete="new-password"
             hasError={!!errors?.password}
             placeholder="Digite a sua senha"
             {...register('password', { required: true })}
@@ -97,6 +125,8 @@ const SignUpPage = () => {
         <SignUpInputContainer>
           <p>Confirme sua senha</p>
           <CustomInput
+            type="password"
+            autoComplete="new-password"
             hasError={!!errors?.confirmPassword}
             placeholder="Digite novamente sua senha"
             {...register('confirmPassword', {
@@ -118,10 +148,7 @@ const SignUpPage = () => {
           )}
         </SignUpInputContainer>
 
-        <CustomButton
-          startIcon={<FiLogIn size={18} />}
-          onClick={() => handleSubmit(handleSubmitSignUp)()}
-        >
+        <CustomButton type="submit" startIcon={<FiLogIn size={18} />}>
           Criar conta
         </CustomButton>
       </SignUpContent>
