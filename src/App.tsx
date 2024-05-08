@@ -1,4 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { onAuthStateChanged } from 'firebase/auth'
+
+import { auth } from './config/firebase.config'
 
 import RootLayout from './pages/RootLayout'
 import HomePage from './pages/home/home.page'
@@ -27,6 +30,15 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      const uid = user.uid
+
+      console.log(`Usuário logado com sucesso id: ${uid}`)
+    } else {
+      console.log('Usuário desconectado')
+    }
+  })
   return <RouterProvider router={router} />
 }
 
