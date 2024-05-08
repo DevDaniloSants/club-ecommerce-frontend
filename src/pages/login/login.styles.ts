@@ -4,6 +4,7 @@ import Colors from '../../theme/theme.colors'
 export const LoginContainer = styled.div`
   height: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `
@@ -15,7 +16,7 @@ export const LoginHeadline = styled.p`
   color: ${Colors.text.dark};
 `
 
-export const LoginContent = styled.form`
+export const LoginContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,6 +25,12 @@ export const LoginContent = styled.form`
   @media (max-width: 768px) {
     width: 90%;
   }
+`
+
+export const LoginForm = styled.form`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 `
 
 export const LoginSubtitle = styled.p`

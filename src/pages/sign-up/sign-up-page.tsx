@@ -61,7 +61,6 @@ const SignUpPage = () => {
 
       if (_error.code === AuthErrorCodes.EMAIL_EXISTS) {
         setError('email', { type: 'alreadyInUse' })
-        console.log(_error)
       }
     }
   }
@@ -123,6 +122,7 @@ const SignUpPage = () => {
           <p>Senha</p>
           <CustomInput
             type="password"
+            autoComplete="password"
             hasError={!!errors?.password}
             placeholder="Digite a sua senha"
             {...register('password', { required: true, minLength: 6 })}
@@ -141,6 +141,7 @@ const SignUpPage = () => {
           <p>Confirme sua senha</p>
           <CustomInput
             type="password"
+            autoComplete="confirm-password"
             hasError={!!errors?.confirmPassword}
             placeholder="Digite novamente sua senha"
             {...register('confirmPassword', {
