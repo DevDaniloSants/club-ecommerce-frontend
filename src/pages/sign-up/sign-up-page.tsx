@@ -65,8 +65,6 @@ const SignUpPage = () => {
     }
   }
 
-  console.log('renderizando')
-
   return (
     <SignUpContainer>
       <SignUpContent onSubmit={handleSubmit(handleSubmitSignUp)}>

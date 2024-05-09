@@ -40,13 +40,7 @@ const LoginPage = () => {
 
   const handleSubmitPress = async (data: LoginForm) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      )
-
-      console.log({ userCredential })
+      await signInWithEmailAndPassword(auth, data.email, data.password)
     } catch (error) {
       const _error = error as AuthError
 
@@ -67,7 +61,7 @@ const LoginPage = () => {
         query(collection(db, 'users'), where('id', '==', credential.user.uid))
       )
 
-      const user = querySnapshot.docs[0]?.data
+      const user = querySnapshot.docs[0]?.data()
 
       if (!user) {
         const firstName = credential.user.displayName?.split(' ')[0]
@@ -81,8 +75,6 @@ const LoginPage = () => {
           provider: 'google',
         })
       }
-
-      console.log({ user })
     } catch (error) {
       console.log(error)
     }

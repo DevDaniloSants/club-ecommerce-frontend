@@ -1,7 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
+import { useContext } from 'react'
+import { collection, getDocs, query, where } from 'firebase/firestore'
 
-import { auth } from './config/firebase.config'
+import { auth, db } from './config/firebase.config'
+import { UserContext } from './contexts/user.context'
 
 import RootLayout from './pages/RootLayout'
 import HomePage from './pages/home/home.page'
@@ -30,13 +33,26 @@ const router = createBrowserRouter([
 ])
 
 const App = () => {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      const uid = user.uid
+  const { loginUser, isAuthenticated, logoutUser } = useContext(UserContext)
 
-      console.log(`Usuário logado com sucesso id: ${uid}`)
-    } else {
-      console.log('Usuário desconectado')
+  onAuthStateChanged(auth, async (user) => {
+    const isSigninOut = isAuthenticated && !user
+
+    if (isSigninOut) {
+      return logoutUser()
+    }
+
+    const isSigningIn = !isAuthenticated && user
+
+    if (isSigningIn) {
+      const querySnapshot = await getDocs(
+        query(collection(db, 'users'), where('id', '==', user.uid))
+      )
+
+      const userFromFirestore = querySnapshot.docs[0]?.data()
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return loginUser(userFromFirestore as any)
     }
   })
   return <RouterProvider router={router} />
