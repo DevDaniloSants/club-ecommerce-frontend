@@ -7,8 +7,11 @@ import {
 } from 'firebase/auth'
 import { collection, addDoc } from 'firebase/firestore'
 import { FiLogIn } from 'react-icons/fi'
+import { useContext, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { auth, db } from '../../config/firebase.config'
+import { UserContext } from '../../contexts/user.context'
 
 import {
   SignUpContainer,
@@ -38,6 +41,15 @@ const SignUpPage = () => {
     getValues,
     setError,
   } = useForm<SignUpPageForm>()
+
+  const { isAuthenticated } = useContext(UserContext)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated, navigate])
 
   const handleSubmitSignUp = async (data: SignUpPageForm) => {
     try {

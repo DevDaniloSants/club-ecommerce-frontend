@@ -9,12 +9,14 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth'
+import { useContext, useEffect } from 'react'
 
 import CustomButton from '../../components/custom-button/custom-button'
 import CustomInput from '../../components/custom-input/custom-input'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
 
 import { auth, db, provider } from '../../config/firebase.config'
+import { UserContext } from '../../contexts/user.context'
 
 import {
   LoginContainer,
@@ -24,6 +26,7 @@ import {
   LoginInputContainer,
   LoginSubtitle,
 } from './login.styles'
+import { useNavigate } from 'react-router-dom'
 
 interface LoginForm {
   email: string
@@ -37,6 +40,16 @@ const LoginPage = () => {
     handleSubmit,
     setError,
   } = useForm<LoginForm>()
+
+  const { isAuthenticated } = useContext(UserContext)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/')
+    }
+  }, [isAuthenticated, navigate])
 
   const handleSubmitPress = async (data: LoginForm) => {
     try {
