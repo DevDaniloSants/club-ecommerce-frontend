@@ -14,6 +14,7 @@ import RootLayout from './pages/RootLayout'
 import HomePage from './pages/home/home.page'
 import LoginPage from './pages/login/login.page'
 import SignUpPage from './pages/sign-up/sign-up-page'
+import ExplorePage from './pages/explore/explore.page'
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: '/explore',
+        element: <ExplorePage />,
       },
       {
         path: '/login',
