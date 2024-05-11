@@ -4,8 +4,11 @@ import { useContext, useState } from 'react'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
 import { auth, db } from './config/firebase.config'
+
 import { UserContext } from './contexts/user.context'
 import { userConverter } from './converters/firestore.converters'
+
+import Loading from './components/loading/loading.component'
 
 import RootLayout from './pages/RootLayout'
 import HomePage from './pages/home/home.page'
@@ -65,7 +68,7 @@ const App = () => {
     return setIsInitializing(false)
   })
 
-  if (isInitializing) return null
+  if (isInitializing) return <Loading />
 
   return <RouterProvider router={router} />
 }
