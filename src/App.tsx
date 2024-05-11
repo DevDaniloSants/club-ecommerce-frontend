@@ -5,6 +5,7 @@ import { collection, getDocs, query, where } from 'firebase/firestore'
 
 import { auth, db } from './config/firebase.config'
 import { UserContext } from './contexts/user.context'
+import { userConverter } from './converters/firestore.converters'
 
 import RootLayout from './pages/RootLayout'
 import HomePage from './pages/home/home.page'
@@ -49,13 +50,15 @@ const App = () => {
 
     if (isSigningIn) {
       const querySnapshot = await getDocs(
-        query(collection(db, 'users'), where('id', '==', user.uid))
+        query(
+          collection(db, 'users').withConverter(userConverter),
+          where('id', '==', user.uid)
+        )
       )
 
       const userFromFirestore = querySnapshot.docs[0]?.data()
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      loginUser(userFromFirestore as any)
+      loginUser(userFromFirestore)
       return setIsInitializing(false)
     }
 
