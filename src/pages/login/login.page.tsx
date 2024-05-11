@@ -9,11 +9,12 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth'
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import CustomButton from '../../components/custom-button/custom-button'
 import CustomInput from '../../components/custom-input/custom-input'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
+import Loading from '../../components/loading/loading.component'
 
 import { auth, db, provider } from '../../config/firebase.config'
 import { UserContext } from '../../contexts/user.context'
@@ -34,6 +35,8 @@ interface LoginForm {
 }
 
 const LoginPage = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
   const {
     register,
     formState: { errors },
@@ -53,6 +56,7 @@ const LoginPage = () => {
 
   const handleSubmitPress = async (data: LoginForm) => {
     try {
+      setIsLoading(true)
       await signInWithEmailAndPassword(auth, data.email, data.password)
     } catch (error) {
       const _error = error as AuthError
@@ -63,11 +67,14 @@ const LoginPage = () => {
 
         return
       }
+    } finally {
+      setIsLoading(false)
     }
   }
 
   const loginWithGoogle = async () => {
     try {
+      setIsLoading(true)
       const credential = await signInWithPopup(auth, provider)
 
       const querySnapshot = await getDocs(
@@ -90,11 +97,14 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <>
+      {isLoading && <Loading />}
       <LoginContainer>
         <LoginContent>
           <LoginHeadline>Entre com a sua conta</LoginHeadline>
