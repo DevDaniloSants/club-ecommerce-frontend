@@ -17,5 +17,7 @@ export const ProductsContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
+  align-content: center;
   flex-wrap: wrap;
+  max-width: 1920px;
 `

@@ -15,7 +15,7 @@ interface IProductItemProps {
 const ProductItem: FunctionComponent<IProductItemProps> = ({ product }) => {
   return (
     <ProductContainer>
-      <ProductImage imageUrl={product.imageUrl} />
+      <ProductImage imageurl={product.imageUrl} />
       <ProductInfo>
         <p>{product.name}</p>
         <p>R$ {product.price}</p>

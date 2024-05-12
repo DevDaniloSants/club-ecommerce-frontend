@@ -1,4 +1,5 @@
 import { FunctionComponent } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Category from '../../types/category.types'
 
@@ -9,9 +10,15 @@ interface CategoryItemProps {
 }
 
 const CategoryItem: FunctionComponent<CategoryItemProps> = ({ category }) => {
+  const navigate = useNavigate()
+
+  const handleCategoryClick = () => {
+    navigate(`/category/${category.id}`)
+  }
+
   return (
     <CategoryItemContainer backgroundimage={category.imageUrl}>
-      <CategoryName>
+      <CategoryName onClick={handleCategoryClick}>
         <p>{category.displayName}</p>
         <p>Explorar</p>
       </CategoryName>
