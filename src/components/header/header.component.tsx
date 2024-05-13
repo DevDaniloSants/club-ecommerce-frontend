@@ -5,6 +5,7 @@ import { useContext } from 'react'
 
 import { auth } from '../../config/firebase.config'
 import { UserContext } from '../../contexts/user.context'
+import { CartContext } from '../../contexts/cart.context'
 
 import {
   HeaderItem,
@@ -17,6 +18,8 @@ const Header = () => {
   const navigate = useNavigate()
 
   const { isAuthenticated } = useContext(UserContext)
+
+  const { toogleCart } = useContext(CartContext)
 
   const handleLogoClick = () => {
     navigate('/')
@@ -48,7 +51,7 @@ const Header = () => {
         {isAuthenticated && (
           <HeaderItem onClick={() => signOut(auth)}>Sair</HeaderItem>
         )}
-        <HeaderItem>
+        <HeaderItem onClick={toogleCart}>
           <BsCart3 size={25} />
           <p>5</p>
         </HeaderItem>
