@@ -15,6 +15,7 @@ import {
 
 import ProductItem from '../product-item/product-item.components'
 import Loading from '../loading/loading.component'
+import { useNavigate } from 'react-router-dom'
 
 interface ICategoryDetailsProps {
   categoryId: string
@@ -25,6 +26,12 @@ const CategoryDetails: FunctionComponent<ICategoryDetailsProps> = ({
 }) => {
   const [category, setCategory] = useState<Category | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+
+  const navigate = useNavigate()
+
+  const handleIconClick = () => {
+    navigate('/')
+  }
 
   useEffect(() => {
     const fetchDocument = async () => {
@@ -55,7 +62,7 @@ const CategoryDetails: FunctionComponent<ICategoryDetailsProps> = ({
   return (
     <Container>
       <CategoryTitle>
-        <IconContainer>
+        <IconContainer onClick={handleIconClick}>
           <BiChevronLeft size={36} />
         </IconContainer>
         <p>Explorar {category?.displayName}</p>
