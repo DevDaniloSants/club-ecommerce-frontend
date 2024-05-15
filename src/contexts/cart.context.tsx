@@ -1,9 +1,16 @@
-import { FunctionComponent, ReactNode, createContext, useState } from 'react'
+import {
+  FunctionComponent,
+  ReactNode,
+  createContext,
+  useMemo,
+  useState,
+} from 'react'
 import CartProducts from '../types/cartProducts.types'
 import Product from '../types/product.types'
 
 interface ICartContext {
   isVisible: boolean
+  productsTotalPrice: number
   products: CartProducts[]
   toogleCart: () => void
   addProductToCart: (product: Product) => void
@@ -18,6 +25,7 @@ interface ICartContextProviderProps {
 
 export const CartContext = createContext<ICartContext>({
   isVisible: false,
+  productsTotalPrice: 0,
   products: [],
   toogleCart: () => {},
   addProductToCart: () => {},
@@ -31,6 +39,12 @@ const CartContextProvider: FunctionComponent<ICartContextProviderProps> = ({
 }) => {
   const [isVisible, setIsVisible] = useState(false)
   const [products, setProducts] = useState<CartProducts[]>([])
+
+  const productsTotalPrice = useMemo(() => {
+    return products.reduce((acc, currentProduct) => {
+      return acc + currentProduct.price * currentProduct.quantity
+    }, 0)
+  }, [products])
 
   const toogleCart = () => {
     setIsVisible((prevState) => !prevState)
@@ -83,6 +97,7 @@ const CartContextProvider: FunctionComponent<ICartContextProviderProps> = ({
   return (
     <CartContext.Provider
       value={{
+        productsTotalPrice,
         products,
         isVisible,
         toogleCart,
