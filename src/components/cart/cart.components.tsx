@@ -15,7 +15,7 @@ import CustomButton from '../custom-button/custom-button'
 import CartItem from '../cart-item/cart-item.components'
 
 const Cart: FunctionComponent = () => {
-  const { isVisible, productsTotalPrice, toogleCart, products } =
+  const { isVisible, productsTotalPrice, productsCount, toogleCart, products } =
     useContext(CartContext)
 
   return (
@@ -28,11 +28,17 @@ const Cart: FunctionComponent = () => {
           <CartItem key={product.id} product={product} />
         ))}
 
-        <CartTotal>Total: R$ {productsTotalPrice}</CartTotal>
+        {productsCount > 0 && (
+          <>
+            <CartTotal>Total: R$ {productsTotalPrice}</CartTotal>
 
-        <CustomButton startIcon={<BsCartCheck />}>
-          Ir para o Checkout
-        </CustomButton>
+            <CustomButton startIcon={<BsCartCheck />}>
+              Ir para o Checkout
+            </CustomButton>
+          </>
+        )}
+
+        {productsCount === 0 && <p>Seu carrinho está vazio</p>}
       </CartContent>
     </CartContainer>
   )
