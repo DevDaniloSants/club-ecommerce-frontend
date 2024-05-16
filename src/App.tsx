@@ -7,6 +7,7 @@ import { auth, db } from './config/firebase.config'
 
 import { UserContext } from './contexts/user.context'
 import { userConverter } from './converters/firestore.converters'
+import AuthenticationGuard from './guards/authentication.guards'
 
 import Loading from './components/loading/loading.component'
 
@@ -37,7 +38,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/checkout',
-        element: <CheckoutPage />,
+        element: (
+          <AuthenticationGuard>
+            <CheckoutPage />
+          </AuthenticationGuard>
+        ),
       },
       {
         path: '/login',
