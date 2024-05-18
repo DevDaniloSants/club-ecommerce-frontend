@@ -10,6 +10,7 @@ export const LoadingContainer = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
+  z-index: 100;
 
   p {
     color: ${Colors.text.white};
