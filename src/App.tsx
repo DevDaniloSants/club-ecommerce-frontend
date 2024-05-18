@@ -18,6 +18,7 @@ import SignUpPage from './pages/sign-up/sign-up-page'
 import ExplorePage from './pages/explore/explore.page'
 import CategoryDetailsPage from './pages/category-details/category-details.page'
 import CheckoutPage from './pages/checkout/checkout.page'
+import PaymentConfirmationPage from './pages/payment-confirmation/payment-confirmation.page'
 
 const router = createBrowserRouter([
   {
@@ -41,6 +42,14 @@ const router = createBrowserRouter([
         element: (
           <AuthenticationGuard>
             <CheckoutPage />
+          </AuthenticationGuard>
+        ),
+      },
+      {
+        path: '/payment-confirmation',
+        element: (
+          <AuthenticationGuard>
+            <PaymentConfirmationPage />
           </AuthenticationGuard>
         ),
       },
