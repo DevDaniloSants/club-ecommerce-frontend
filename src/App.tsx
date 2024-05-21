@@ -2,12 +2,13 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { collection, getDocs, query, where } from 'firebase/firestore'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import { auth, db } from './config/firebase.config'
 import { userConverter } from './converters/firestore.converters'
 import AuthenticationGuard from './guards/authentication.guards'
 import { loginUser, logoutUser } from './store/reducers/user/user.actions'
+import { useAppSelector } from './hooks/redux.hooks'
 
 import Loading from './components/loading/loading.component'
 
@@ -70,8 +71,7 @@ const App = () => {
 
   const dispatch = useDispatch()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { isAuthenticated } = useSelector((state: any) => state.userReducer)
+  const { isAuthenticated } = useAppSelector((state) => state.userReducer)
 
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {

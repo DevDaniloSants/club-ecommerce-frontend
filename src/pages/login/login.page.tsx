@@ -11,14 +11,14 @@ import {
 } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+
+import { auth, db, provider } from '../../config/firebase.config'
+import { useAppSelector } from '../../hooks/redux.hooks'
 
 import CustomButton from '../../components/custom-button/custom-button'
 import CustomInput from '../../components/custom-input/custom-input'
 import InputErrorMessage from '../../components/input-error-message/input-error-message'
 import Loading from '../../components/loading/loading.component'
-
-import { auth, db, provider } from '../../config/firebase.config'
 
 import {
   LoginContainer,
@@ -44,8 +44,7 @@ const LoginPage = () => {
     setError,
   } = useForm<LoginForm>()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { isAuthenticated } = useSelector((state: any) => state.userReducer)
+  const { isAuthenticated } = useAppSelector((state) => state.userReducer)
 
   const navigate = useNavigate()
 

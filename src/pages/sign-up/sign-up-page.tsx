@@ -9,9 +9,9 @@ import { collection, addDoc } from 'firebase/firestore'
 import { FiLogIn } from 'react-icons/fi'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
 
 import { auth, db } from '../../config/firebase.config'
+import { useAppSelector } from '../../hooks/redux.hooks'
 
 import {
   SignUpContainer,
@@ -48,7 +48,7 @@ const SignUpPage = () => {
   const navigate = useNavigate()
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { isAuthenticated } = useSelector((state: any) => state.userReducer)
+  const { isAuthenticated } = useAppSelector((state) => state.userReducer)
 
   useEffect(() => {
     if (isAuthenticated) {
