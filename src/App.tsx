@@ -5,9 +5,9 @@ import { collection, getDocs, query, where } from 'firebase/firestore'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { auth, db } from './config/firebase.config'
-
 import { userConverter } from './converters/firestore.converters'
 import AuthenticationGuard from './guards/authentication.guards'
+import { loginUser, logoutUser } from './store/reducers/user/user.actions'
 
 import Loading from './components/loading/loading.component'
 
@@ -78,7 +78,7 @@ const App = () => {
       const isSigninOut = isAuthenticated && !user
 
       if (isSigninOut) {
-        dispatch({ type: 'LOGOUT_USER' })
+        dispatch(logoutUser())
         return setIsInitializing(false)
       }
 
@@ -94,7 +94,7 @@ const App = () => {
 
         const userFromFirestore = querySnapshot.docs[0]?.data()
 
-        dispatch({ type: 'LOGIN_USER', payload: userFromFirestore })
+        dispatch(loginUser(userFromFirestore))
 
         return setIsInitializing(false)
       }
