@@ -7,12 +7,11 @@ import {
 } from 'firebase/auth'
 import { collection, addDoc } from 'firebase/firestore'
 import { FiLogIn } from 'react-icons/fi'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import { auth, db } from '../../config/firebase.config'
-
-import { UserContext } from '../../contexts/user.context'
 
 import {
   SignUpContainer,
@@ -46,8 +45,10 @@ const SignUpPage = () => {
     setError,
   } = useForm<SignUpPageForm>()
 
-  const { isAuthenticated } = useContext(UserContext)
   const navigate = useNavigate()
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { isAuthenticated } = useSelector((state: any) => state.userReducer)
 
   useEffect(() => {
     if (isAuthenticated) {

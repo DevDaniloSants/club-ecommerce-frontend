@@ -9,7 +9,9 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
 } from 'firebase/auth'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import CustomButton from '../../components/custom-button/custom-button'
 import CustomInput from '../../components/custom-input/custom-input'
@@ -17,7 +19,6 @@ import InputErrorMessage from '../../components/input-error-message/input-error-
 import Loading from '../../components/loading/loading.component'
 
 import { auth, db, provider } from '../../config/firebase.config'
-import { UserContext } from '../../contexts/user.context'
 
 import {
   LoginContainer,
@@ -27,7 +28,6 @@ import {
   LoginInputContainer,
   LoginSubtitle,
 } from './login.styles'
-import { useNavigate } from 'react-router-dom'
 
 interface LoginForm {
   email: string
@@ -44,7 +44,8 @@ const LoginPage = () => {
     setError,
   } = useForm<LoginForm>()
 
-  const { isAuthenticated } = useContext(UserContext)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { isAuthenticated } = useSelector((state: any) => state.userReducer)
 
   const navigate = useNavigate()
 

@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { onAuthStateChanged } from 'firebase/auth'
-import { useContext, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { collection, getDocs, query, where } from 'firebase/firestore'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { auth, db } from './config/firebase.config'
 
-import { UserContext } from './contexts/user.context'
 import { userConverter } from './converters/firestore.converters'
 import AuthenticationGuard from './guards/authentication.guards'
 
@@ -68,34 +68,42 @@ const router = createBrowserRouter([
 const App = () => {
   const [isInitializing, setIsInitializing] = useState(true)
 
-  const { loginUser, isAuthenticated, logoutUser } = useContext(UserContext)
+  const dispatch = useDispatch()
 
-  onAuthStateChanged(auth, async (user) => {
-    const isSigninOut = isAuthenticated && !user
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { isAuthenticated } = useSelector((state: any) => state.userReducer)
 
-    if (isSigninOut) {
-      logoutUser()
-      return setIsInitializing(false)
-    }
+  useEffect(() => {
+    onAuthStateChanged(auth, async (user) => {
+      const isSigninOut = isAuthenticated && !user
 
-    const isSigningIn = !isAuthenticated && user
+      if (isSigninOut) {
+        dispatch({ type: 'LOGOUT_USER' })
+        return setIsInitializing(false)
+      }
 
-    if (isSigningIn) {
-      const querySnapshot = await getDocs(
-        query(
-          collection(db, 'users').withConverter(userConverter),
-          where('id', '==', user.uid)
+      const isSigningIn = !isAuthenticated && user
+
+      if (isSigningIn) {
+        const querySnapshot = await getDocs(
+          query(
+            collection(db, 'users').withConverter(userConverter),
+            where('id', '==', user.uid)
+          )
         )
-      )
 
-      const userFromFirestore = querySnapshot.docs[0]?.data()
+        const userFromFirestore = querySnapshot.docs[0]?.data()
 
-      loginUser(userFromFirestore)
+        dispatch({ type: 'LOGIN_USER', payload: userFromFirestore })
+
+        return setIsInitializing(false)
+      }
+
       return setIsInitializing(false)
-    }
+    })
 
-    return setIsInitializing(false)
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch])
 
   if (isInitializing) return <Loading />
 

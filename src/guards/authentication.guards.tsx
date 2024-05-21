@@ -1,9 +1,8 @@
-import { FunctionComponent, ReactNode, useContext, useEffect } from 'react'
+import { FunctionComponent, ReactNode, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { UserContext } from '../contexts/user.context'
-
 import Loading from '../components/loading/loading.component'
+import { useSelector } from 'react-redux'
 
 interface IAuthenticationProps {
   children: ReactNode
@@ -12,9 +11,10 @@ interface IAuthenticationProps {
 const AuthenticationGuard: FunctionComponent<IAuthenticationProps> = ({
   children,
 }) => {
-  const { isAuthenticated } = useContext(UserContext)
-
   const navigate = useNavigate()
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { isAuthenticated } = useSelector((state: any) => state.userReducer)
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -22,6 +22,7 @@ const AuthenticationGuard: FunctionComponent<IAuthenticationProps> = ({
         navigate('/login')
       }, 3000)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuthenticated])
 
   if (!isAuthenticated) {
