@@ -47,7 +47,6 @@ const SignUpPage = () => {
 
   const navigate = useNavigate()
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { isAuthenticated } = useAppSelector((state) => state.userReducer)
 
   useEffect(() => {
