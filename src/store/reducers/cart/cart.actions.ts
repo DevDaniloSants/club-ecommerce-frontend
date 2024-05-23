@@ -60,3 +60,11 @@ export const decreaseProductQuantity = (
 export const clearProducts = (): ClearProductsActions => ({
   type: CartActionsTypes.clearProduct,
 })
+
+export type CartActions =
+  | ToogleCartActions
+  | AddProductActions
+  | RemoveProductActions
+  | IncreaseProductQuantityActions
+  | DecreaseProductQuantityActions
+  | ClearProductsActions

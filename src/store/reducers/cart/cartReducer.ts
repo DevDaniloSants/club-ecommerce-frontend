@@ -1,4 +1,5 @@
 import CartProducts from '../../../types/cartProducts.types'
+import { CartActions } from './cart.actions'
 
 import CartActionsTypes from './cart.actions-types'
 
@@ -12,8 +13,10 @@ const initialState: InitialState = {
   products: [],
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const cartReducer = (state = initialState, action: any): InitialState => {
+const cartReducer = (
+  state = initialState,
+  action: CartActions
+): InitialState => {
   switch (action.type) {
     case CartActionsTypes.toggleCart:
       return { ...state, isVisible: !state.isVisible }
