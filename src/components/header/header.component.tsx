@@ -1,14 +1,13 @@
 import { BsCart3 } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
-import { useContext } from 'react'
 import { useDispatch } from 'react-redux'
 
 import { auth } from '../../config/firebase.config'
 import { useAppSelector } from '../../hooks/redux.hooks'
-import { CartContext } from '../../contexts/cart.context'
 import { logoutUser } from '../../store/reducers/user/user.actions'
 import { toogleCart } from '../../store/reducers/cart/cart.actions'
+import { selectProductsCount } from '../../store/reducers/cart/cart.selectors'
 
 import {
   HeaderItem,
@@ -24,7 +23,7 @@ const Header = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const { isAuthenticated } = useAppSelector((state) => state.userReducer)
 
-  const { productsCount } = useContext(CartContext)
+  const productsCount = useAppSelector(selectProductsCount)
 
   const handleLogoClick = () => {
     navigate('/')
