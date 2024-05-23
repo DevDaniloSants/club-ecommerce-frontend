@@ -1,8 +1,9 @@
-import { FunctionComponent, useContext, useState } from 'react'
+import { FunctionComponent, useState } from 'react'
 import { MdShoppingCartCheckout } from 'react-icons/md'
 import axios from 'axios'
 
-import { CartContext } from '../../contexts/cart.context'
+import { useAppSelector } from '../../hooks/redux.hooks'
+import { selectProductsTotalPrice } from '../../store/reducers/cart/cart.selectors'
 
 import {
   CheckoutContainer,
@@ -16,8 +17,10 @@ import CustomButton from '../custom-button/custom-button'
 import Loading from '../loading/loading.component'
 
 const Checkout: FunctionComponent = () => {
-  const { products, productsTotalPrice } = useContext(CartContext)
   const [loading, setLoading] = useState(false)
+
+  const { products } = useAppSelector((state) => state.cartReducer)
+  const productsTotalPrice = useAppSelector(selectProductsTotalPrice)
 
   const handleFinishPurchaseClick = async () => {
     try {
