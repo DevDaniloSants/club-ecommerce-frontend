@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { auth, db } from './config/firebase.config'
 import { userConverter } from './converters/firestore.converters'
 import AuthenticationGuard from './guards/authentication.guards'
-import { loginUser, logoutUser } from './store/reducers/user/user.actions'
+import { loginUser, logoutUser } from './store/toolkit/user/userSlice'
 import { useAppSelector } from './hooks/redux.hooks'
 
 import Loading from './components/loading/loading.component'

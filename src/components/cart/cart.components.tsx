@@ -9,6 +9,7 @@ import {
   selectProductsCount,
   selectProductsTotalPrice,
 } from '../../store/reducers/cart/cart.selectors'
+import CartProducts from '../../types/cartProducts.types'
 
 import {
   CartContainer,
@@ -22,7 +23,7 @@ import CustomButton from '../custom-button/custom-button'
 import CartItem from '../cart-item/cart-item.components'
 
 const Cart: FunctionComponent = () => {
-  const { isVisible, products } = useAppSelector((state) => state.cartReducer)
+  const { isVisible, products } = useAppSelector((state) => state.cartReducer!)
 
   const productsTotalPrice = useAppSelector(selectProductsTotalPrice)
   const productsCount = useAppSelector(selectProductsCount)
@@ -46,7 +47,7 @@ const Cart: FunctionComponent = () => {
       <CartContent>
         <CartTitle>Seu Carrinho</CartTitle>
 
-        {products.map((product) => (
+        {products.map((product: CartProducts) => (
           <CartItem key={product.id} product={product} />
         ))}
 

@@ -1,6 +1,6 @@
-import { createStore, applyMiddleware } from 'redux'
 import { thunk } from 'redux-thunk'
 import { logger } from 'redux-logger'
+import { configureStore } from '@reduxjs/toolkit'
 
 // @ts-expect-error: Unreachable code error
 import storage from 'redux-persist/lib/storage'
@@ -22,11 +22,17 @@ const persistedRootReducer: typeof rootReducer = persistReducer(
   rootReducer
 )
 
-// @ts-expect-error: Unreachable code error
-export const store = createStore(
-  persistedRootReducer,
-  applyMiddleware(thunk, logger)
-)
+// // @ts-expect-error: Unreachable code error
+// export const store = createStore(
+//   persistedRootReducer,
+//   applyMiddleware(thunk, logger)
+// )
+
+export const store = configureStore({
+  reducer: persistedRootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(thunk, logger),
+})
 
 export const persistedStore = persistStore(store)
 

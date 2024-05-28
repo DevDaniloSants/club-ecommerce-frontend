@@ -13,6 +13,7 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.6.8",
     "firebase": "^10.11.1",
     "react": "^18.2.0",

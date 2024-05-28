@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 
 import { auth } from '../../config/firebase.config'
 import { useAppSelector } from '../../hooks/redux.hooks'
-import { logoutUser } from '../../store/reducers/user/user.actions'
+import { logoutUser } from '../../store/toolkit/user/userSlice'
 import { toogleCart } from '../../store/reducers/cart/cart.actions'
 import { selectProductsCount } from '../../store/reducers/cart/cart.selectors'
 
