@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 
 import userReducer from './toolkit/user/userSlice'
 import cartReducer from './toolkit/cart/cartSlice'
-import categoryReducer from './reducers/category/categoryReducer'
+import categoryReducer from './toolkit/category/categorySlice'
 
 const rootReducer = combineReducers({
   userReducer,

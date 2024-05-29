@@ -1,12 +1,11 @@
 import { FunctionComponent, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 
-import fetchCategories from '../../store/reducers/category/category.actions'
-
 import CategoryOverview from '../category-overview/category-overview.components'
 
 import { Container } from './categories-overview.styles'
 import { useAppSelector } from '../../hooks/redux.hooks'
+import { fetchCategories } from '../../store/toolkit/category/categorySlice'
 
 const CategoriesOverview: FunctionComponent = () => {
   const dispatch = useDispatch()
