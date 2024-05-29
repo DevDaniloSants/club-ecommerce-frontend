@@ -8,7 +8,7 @@ import {
 import { useDispatch } from 'react-redux'
 
 import Colors from '../../theme/theme.colors'
-import { clearProducts } from '../../store/reducers/cart/cart.actions'
+import { clearProducts } from '../../store/toolkit/cart/cartSlice'
 
 import {
   PaymentConfirmationContainer,
@@ -30,6 +30,7 @@ const PaymentConfirmationPage: FunctionComponent = () => {
     if (status === 'true') {
       dispatch(clearProducts())
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleGoToHomePageClick = () => {

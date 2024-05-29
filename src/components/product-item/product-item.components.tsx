@@ -2,7 +2,7 @@ import { FunctionComponent } from 'react'
 import { BsCartPlus } from 'react-icons/bs'
 import { useDispatch } from 'react-redux'
 
-import { addProduct } from '../../store/reducers/cart/cart.actions'
+import { addProduct } from '../../store/toolkit/cart/cartSlice'
 
 import {
   ProductContainer,

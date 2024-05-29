@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import { useAppSelector } from '../../hooks/redux.hooks'
-import { toogleCart } from '../../store/reducers/cart/cart.actions'
+import { toogleCart } from '../../store/toolkit/cart/cartSlice'
 import {
   selectProductsCount,
   selectProductsTotalPrice,
