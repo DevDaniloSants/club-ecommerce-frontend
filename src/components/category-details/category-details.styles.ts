@@ -27,6 +27,7 @@ export const ProductsContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    align-content: center;
   }
 `
 
