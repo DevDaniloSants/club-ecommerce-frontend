@@ -20,4 +20,8 @@ export const ProductsContainer = styled.div`
   align-content: center;
   flex-wrap: wrap;
   max-width: 1920px;
+
+  @media (max-width: 768px) {
+    row-gap: 20px;
+  }
 `
