@@ -9,6 +9,6 @@ export default async (): Promise<Config> => {
     testEnvironment: 'jest-environment-jsdom',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     roots: ['<rootDir>/src'],
-    setupFilesAfterEnv: ['<rootDir>/setup-test.ts'],
+    setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
   }
 }

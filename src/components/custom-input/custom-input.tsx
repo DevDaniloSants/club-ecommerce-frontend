@@ -1,7 +1,8 @@
 import React, { InputHTMLAttributes } from 'react'
 import { CustomInputContainer } from './custom-input.styles'
 
-interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface CustomInputProps
+  extends InputHTMLAttributes<HTMLInputElement> {
   hasError?: boolean
 }
 
