@@ -15,6 +15,18 @@ export const CategoriesContainer = styled.div`
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
   background-color: rgba(0, 0, 0, 0.3);
   background-blend-mode: color;
+`
+
+export const CategoriesContent = styled.div`
+  height: 100%;
+  width: 1920px;
+  display: grid;
+  grid-template-areas:
+    'a b'
+    'c c'
+    'd e';
+  gap: 15px;
+  padding: 30px;
 
   & div:nth-child(1) {
     grid-area: a;
@@ -31,16 +43,25 @@ export const CategoriesContainer = styled.div`
   & div:nth-child(5) {
     grid-area: e;
   }
-`
 
-export const CategoriesContent = styled.div`
-  height: 100%;
-  width: 1920px;
-  display: grid;
-  grid-template-areas:
-    'a b'
-    'c c'
-    'd e';
-  gap: 15px;
-  padding: 30px;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+
+    & div:nth-child(1) {
+      flex: 1;
+    }
+    & div:nth-child(2) {
+      flex: 1;
+    }
+    & div:nth-child(3) {
+      flex: 1;
+    }
+    & div:nth-child(4) {
+      flex: 1;
+    }
+    & div:nth-child(5) {
+      flex: 1;
+    }
+  }
 `
