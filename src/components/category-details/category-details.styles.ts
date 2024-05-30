@@ -17,10 +17,17 @@ export const CategoryTitle = styled.div`
 
 export const ProductsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   justify-items: start;
   margin-top: 5px;
-  grid-row-gap: 20px;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 `
 
 export const IconContainer = styled.div`
