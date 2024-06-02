@@ -57,4 +57,23 @@ describe('cart', () => {
 
     waitFor(() => expect(getByText('1')))
   })
+  it('should increase product quantity on increase click', () => {
+    const products: CartProducts[] = [
+      {
+        id: '1',
+        imageUrl: 'image.png',
+        name: 'boné',
+        price: 100,
+        quantity: 2,
+      },
+    ]
+    const { getByLabelText, getByText } = renderWithRedux(<Cart />, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      preloadedState: { cartReducer: { products } } as any,
+    })
+    const decreaseButton = getByLabelText('Increase of boné')
+    userEvent.click(decreaseButton)
+
+    waitFor(() => expect(getByText('3')))
+  })
 })
