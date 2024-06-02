@@ -13,7 +13,7 @@ describe('cart', () => {
         quantity: 1,
       },
     ]
-    const { getByText } = renderWithRedux(<Cart />, {
+    const { getByText, queryByText } = renderWithRedux(<Cart />, {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       preloadedState: { cartReducer: { products } } as any,
     })
@@ -22,5 +22,17 @@ describe('cart', () => {
     getByText('R$100')
     getByText('1')
     getByText('Total: R$ 100')
+    getByText('Ir para o Checkout')
+    expect(queryByText(/seu carrinho está vazio/i)).toBeNull()
+  })
+
+  it('should not show checkout button and should show an empty message if cart is empty', () => {
+    const { getByText, queryByText } = renderWithRedux(<Cart />, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      preloadedState: { cartReducer: { products: [] } } as any,
+    })
+
+    getByText(/seu carrinho está vazio/i)
+    expect(queryByText('Ir para o Checkout')).toBeNull()
   })
 })
