@@ -1,6 +1,8 @@
+import userEvent from '@testing-library/user-event'
 import { renderWithRedux } from '../../helpers/test-helpers'
 import CartProducts from '../../types/cartProducts.types'
 import Cart from './cart.components'
+import { waitFor } from '@testing-library/dom'
 
 describe('cart', () => {
   it('should show correct cart products', () => {
@@ -34,5 +36,25 @@ describe('cart', () => {
 
     getByText(/seu carrinho está vazio/i)
     expect(queryByText('Ir para o Checkout')).toBeNull()
+  })
+
+  it('should increase product quantity on decrease click', () => {
+    const products: CartProducts[] = [
+      {
+        id: '1',
+        imageUrl: 'image.png',
+        name: 'boné',
+        price: 100,
+        quantity: 2,
+      },
+    ]
+    const { getByLabelText, getByText } = renderWithRedux(<Cart />, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      preloadedState: { cartReducer: { products } } as any,
+    })
+    const decreaseButton = getByLabelText('Decrease of boné')
+    userEvent.click(decreaseButton)
+
+    waitFor(() => expect(getByText('1')))
   })
 })
