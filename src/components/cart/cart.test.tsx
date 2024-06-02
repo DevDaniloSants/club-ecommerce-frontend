@@ -58,6 +58,7 @@ describe('cart', () => {
     userEvent.click(decreaseButton)
 
     await waitFor(() => expect(getByText('1')))
+    getByText('Total: R$ 100')
   })
   it('should increase product quantity on increase click', async () => {
     const products: CartProducts[] = [
@@ -77,6 +78,7 @@ describe('cart', () => {
     userEvent.click(decreaseButton)
 
     await waitFor(() => expect(getByText('3')))
+    getByText('Total: R$ 300')
   })
 
   it('should remove product on remove click', async () => {
