@@ -11,13 +11,13 @@ import { AppStore } from '../store/store'
 export const renderWithRedux = (
   component: ReactElement,
   {
-    preloadedState,
+    preloadedState = {},
     store = configureStore({
       reducer: rootReducer,
       preloadedState,
     }),
     ...renderOptions
-  }: { preloadedState: RootState; store?: AppStore }
+  }: { preloadedState?: Partial<RootState>; store?: AppStore }
 ) => {
   const Wrapper = ({ children }: { children: ReactNode }) => (
     <BrowserRouter>
