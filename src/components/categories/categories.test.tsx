@@ -1,8 +1,10 @@
 import * as firestore from 'firebase/firestore'
+import { waitFor } from '@testing-library/dom'
+
 import Category from '../../types/category.types'
 import { renderWithRedux } from '../../helpers/test-helpers'
+
 import Categories from './categories.component'
-import { waitFor } from '@testing-library/dom'
 
 jest.mock('firebase/firestore')
 
