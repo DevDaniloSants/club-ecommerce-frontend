@@ -1,9 +1,12 @@
 import { waitFor } from '@testing-library/dom'
 import userEvent from '@testing-library/user-event'
+import * as firebaseAuth from 'firebase/auth'
 
 import { renderWithRedux } from '../../helpers/test-helpers'
 
 import SignUpPage from './sign-up-page'
+
+jest.mock('firebase/auth')
 
 describe('Sign Up', () => {
   it('should show error when trying to submit without filling all required fields', async () => {
@@ -71,5 +74,41 @@ describe('Sign Up', () => {
     userEvent.click(buttonSubmit)
 
     await waitFor(() => getByText('A senha precisa ter no mínimo 6 caracteres'))
+  })
+  it('should show error if email already exist', async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const mockFirebaseAuth = firebaseAuth as any
+
+    const { getByText, getByPlaceholderText } = renderWithRedux(
+      <SignUpPage />,
+      {}
+    )
+
+    mockFirebaseAuth.createUserWithEmailAndPassword.mockImplementation(() =>
+      Promise.reject({ code: mockFirebaseAuth.AuthErrorCodes.EMAIL_EXISTS })
+    )
+
+    const inputFirstName = getByPlaceholderText('Digite o seu nome')
+    await userEvent.type(inputFirstName, 'lorem')
+
+    const inputLastName = getByPlaceholderText('Digite o seu sobrenome')
+    await userEvent.type(inputLastName, 'ipsum')
+
+    const inputEmail = getByPlaceholderText('Digite o seu e-mail')
+    await userEvent.type(inputEmail, 'teste@teste.com')
+
+    const inputPassword = getByPlaceholderText('Digite a sua senha')
+    await userEvent.type(inputPassword, '123456')
+
+    const inputConfirmPassword = getByPlaceholderText(
+      'Digite novamente sua senha'
+    )
+    await userEvent.type(inputConfirmPassword, '123456')
+
+    const buttonSubmit = getByText('Criar conta', { selector: 'button' })
+
+    userEvent.click(buttonSubmit)
+
+    await waitFor(() => getByText('O e-mail já está em uso'))
   })
 })
