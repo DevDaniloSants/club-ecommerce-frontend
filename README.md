@@ -1,30 +1,45 @@
-# React + TypeScript + Vite
+# CLUB CLOTHING 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <img src="https://i.ibb.co/kcBwZd6/Captura-de-tela-2024-06-05-193315.png" alt="CLUB CLOTHING">
+</p>
 
-Currently, two official plugins are available:
+  &nbsp; Este projeto é um e-commerce de roupas. No front-end, utilizei **React** para a construção da interface, **Styled Components** para a estilização e **TypeScript** para garantir a segurança e escalabilidade do código.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+  &nbsp; Estou utilizando **Firebase** como banco de dados para armazenar categorias, produtos e usuários, além de gerenciar a autenticação. Para o gerenciamento de estado da aplicação, optei pelo **Redux**, garantindo que todas as partes do aplicativo tenham acesso aos dados necessários de forma consistente.
 
-## Expanding the ESLint configuration
+  &nbsp;  As requisições HTTP são feitas com **Axios**, pois criei um pequeno backend para integrar com o **Stripe**, que é a solução utilizada para processar pagamentos de forma segura. Para a gestão de formulários, como cadastro e login, estou usando **React Hook Form**, que simplifica a validação e manipulação dos dados dos formulários.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+  &nbsp;  Os testes são realizados com **Jest** e **Testing Library**, assegurando que a aplicação se mantenha robusta e livre de bugs. Por fim, todo o design e prototipagem foram desenvolvidos no **Figma**, permitindo uma visualização clara e colaborativa do layout e das funcionalidades do projeto.
 
-- Configure the top-level `parserOptions` property like this:
+## Tecnologias Utilizadas
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+⭐ **React** (para construção da interface)  
+⭐ **TypeScript** (para garantir a segurança e escalabilidade do código)  
+⭐ **Styled Components** (para estilização de componentes)  
+⭐ **Firebase** (para backend e autenticação)  
+⭐ **Redux** (para gerenciamento de estado)  
+⭐ **Axios** (para requisições HTTP)  
+⭐ **React Hook Form** (para gerenciamento de formulários)  
+⭐ **Jest & Testing Library** (para testes)  
+⭐ **Stripe** (para pagamentos)  
+⭐ **Figma** (para design e prototipagem)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Husky, lint-staged, Prettier e ESLint
+
+Para manter a qualidade do código e a consistência do estilo, utilizei **Husky**, **lint-staged**, **Prettier** e **ESLint**.
+
+
+## :child: Author
+
+<table>
+  <tr>
+    <td align="center">
+        <img src="https://avatars.githubusercontent.com/u/152008168?s=400&u=710379e70ac9c4490d3044ffd12a47092b993f76&v=4" width="100px;" alt="Foto de Danilo Santos no GitHub"/><br>
+        <sub>
+          <b>Danilo Santos</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
