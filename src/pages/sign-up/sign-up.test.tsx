@@ -1,11 +1,9 @@
 import { waitFor } from '@testing-library/dom'
+import userEvent from '@testing-library/user-event'
 
 import { renderWithRedux } from '../../helpers/test-helpers'
 
 import SignUpPage from './sign-up-page'
-import userEvent from '@testing-library/user-event'
-
-jest.mock('firebase/auth')
 
 describe('Sign Up', () => {
   it('should show error when trying to submit without filling all required fields', async () => {
@@ -36,5 +34,27 @@ describe('Sign Up', () => {
     userEvent.click(buttonSubmit)
 
     await waitFor(() => getByText('Digite um e-mail válido'))
+  })
+  it('should show error when password and password confirmation are different', async () => {
+    const { getByText, getByPlaceholderText } = renderWithRedux(
+      <SignUpPage />,
+      {}
+    )
+
+    const inputPassword = getByPlaceholderText('Digite a sua senha')
+    await userEvent.type(inputPassword, '12345678')
+
+    const inputConfirmPassword = getByPlaceholderText(
+      'Digite novamente sua senha'
+    )
+    await userEvent.type(inputConfirmPassword, '1234567890')
+
+    const buttonSubmit = getByText('Criar conta', { selector: 'button' })
+
+    userEvent.click(buttonSubmit)
+
+    await waitFor(() =>
+      getByText('A confirmação de senha precisa ser igual a senha.')
+    )
   })
 })
