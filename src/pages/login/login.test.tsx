@@ -10,18 +10,18 @@ jest.mock('firebase/auth')
 
 describe('Login', () => {
   it('should show erros when trying to submit without filling all required fields', async () => {
-    const { getByText, findByText } = renderWithRedux(<LoginPage />, {})
+    const { getByText } = renderWithRedux(<LoginPage />, {})
 
     const submitButton = getByText('Entrar')
 
     userEvent.click(submitButton)
 
-    await findByText(/o e-mail é obrigatório./i)
-    getByText(/a senha é obrigatória./i)
+    await waitFor(() => getByText('O e-mail é obrigatório'))
+    getByText(/a senha é obrigatória/i)
   })
 
   it('should show error if email is invalid', async () => {
-    const { getByPlaceholderText, findByText, getByText } = renderWithRedux(
+    const { getByPlaceholderText, getByText } = renderWithRedux(
       <LoginPage />,
       {}
     )
@@ -34,7 +34,7 @@ describe('Login', () => {
 
     userEvent.click(submitButton)
 
-    await findByText(/por favor, insira um e-mail válido./i)
+    await waitFor(() => getByText(/Por favor, digite um e-mail válido./i))
   })
 
   it('should show an error if email and passowrd is not found', async () => {
