@@ -1,7 +1,7 @@
 # CLUB CLOTHING 
 
 <p align="center">
-  <img src="https://i.ibb.co/kcBwZd6/Captura-de-tela-2024-06-05-193315.png" alt="CLUB CLOTHING">
+  <img src="https://i.ibb.co/kcBwZd6/Captura-de-tela-2024-06-05-193315.png" alt="KDeveloper">
 </p>
 
   &nbsp; Este projeto é um e-commerce de roupas. No front-end, utilizei **React** para a construção da interface, **Styled Components** para a estilização e **TypeScript** para garantir a segurança e escalabilidade do código.
